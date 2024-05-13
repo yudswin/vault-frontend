@@ -21,7 +21,7 @@ const NotFoundPage = () => {
                     the page or come back later.
                 </Typography>
                 <Button color="gray" className="w-full px-4 md:w-[8rem]">
-                    back home
+                    back homee
                 </Button>
             </div>
         </div>
