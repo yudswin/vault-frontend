@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography, Button } from "@material-tailwind/react";
-import { Flag } from "@phosphor-icons/react";
+import { AddressBook, Flag } from "@phosphor-icons/react";
 
 const NotFoundPage = () => {
     return (
         <div className="h-screen mx-auto grid place-items-center text-center px-8">
             <div>
                 <div className="justify-center flex">
-                    <Flag size={128} weight="fill" />
+                    <Flag size={90} weight="fill" />
                 </div>
                 <Typography
                     variant="h1"
@@ -20,6 +20,7 @@ const NotFoundPage = () => {
                     Don&apos;t worry, our team is already on it.Please try refreshing
                     the page or come back later.
                 </Typography>
+                <AddressBook size={28} color="#7f2424" weight="thin" />
                 <Button color="gray" className="w-full px-4 md:w-[8rem]">
                     back homee
                 </Button>
