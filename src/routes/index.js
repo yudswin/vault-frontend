@@ -14,7 +14,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/',
+        path: '/student',
         page: LoginStudent,
         title: 'Login Page',
         role: 'Student',
