@@ -46,7 +46,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/dashboard/course',
+        path: '/lecturer/dashboard/:course',
         page: CourseInfoPage,
         title: 'Course Information',
         role: 'lecturer',
