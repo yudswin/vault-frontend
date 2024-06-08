@@ -29,7 +29,7 @@ const Lecturer = () => {
             const decoded = jwtDecode(storageData);
             // console.log(decoded);
             const res = await CourseService.getAll(decoded.id, storageData);
-            // console.log(res);
+            console.log(res);
             return res;
         } catch (error) {
             console.log(error);

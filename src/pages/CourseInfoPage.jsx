@@ -93,12 +93,19 @@ const CourseInfoPage = () => {
         }
     }
 
+    const handleCourseCreated = () => {
+        setCourseCreated(prevState => !prevState);
+    };
+
     const querySession = useQuery({ queryKey: ['sessions'], queryFn: getAllSession })
-    const { isLoading: isLoadingSessions, data: dataSessions, error: errorSessions } = querySession
+    const { isLoading: isLoadingSessions, data: dataSessions, isSuccess: isSuccessSessions } = querySession
+
+    const [courseCreated, setCourseCreated] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem('accessToken')) {
             fetchSession();
+            // console.log('fetching session');
         }
         getAllSession()
             .then(res => {
@@ -107,12 +114,12 @@ const CourseInfoPage = () => {
             .catch(err => {
                 console.log(err);
             })
-    }, [])
+    }, [courseCreated])
 
 
     return (
         <div className={`sm:h-full h-full bg-gradient-to-tr from-violet-400 to-sky-200`}>
-            <CourseNavbar />
+            <CourseNavbar onCourseCreated={handleCourseCreated} />
             <div className="p-4">
                 <BreadcrumbComponent />
                 <div id='course-info' className='px-6 py-4 flex flex-col sm:gap-1 border-[1px] border-gray-700 bg-white w-full relative'>
