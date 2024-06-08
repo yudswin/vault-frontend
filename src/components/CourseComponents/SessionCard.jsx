@@ -1,6 +1,7 @@
 import { CalendarBlank, ListMagnifyingGlass, Users } from '@phosphor-icons/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import * as RecordService from '../../services/RecordService';
 
 const gradients = [
     'bg-white',
@@ -18,7 +19,7 @@ function getRandomGradient() {
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const SessionCard = ({ studentNum, session }) => {
+const SessionCard = ({ session }) => {
     // console.log(session)
     const navigate = useNavigate()
     const mockDate = new Date(session?.createdAt)
@@ -31,6 +32,28 @@ const SessionCard = ({ studentNum, session }) => {
     const goToCard = () => {
         navigate(`/lecturer/dashboard/${course}/${session.code}/review`)
     }
+
+    const [totalRecord, setTotalRecord] = useState(0);
+
+    const fetchTotalRecords = async () => {
+        try {
+            const res = await RecordService.getTotal(session._id);
+            return res;
+        } catch (error) {
+            console.error("Error fetching total records:", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchTotalRecords()
+            .then(res => {
+                setTotalRecord(res.data);
+            })
+            .catch(err => {
+                console.error("Error fetching total records:", err);
+            })
+    }, [totalRecord])
+
 
     return (
         <div
@@ -51,7 +74,7 @@ const SessionCard = ({ studentNum, session }) => {
                         <Users size={20} weight="light" />
                     </span>
                     <span className='font-montserrat flex'>
-                        {studentNum ? studentNum : Math.floor(Math.random() * 30)}
+                        {totalRecord ? totalRecord : 'No Record'}
                         &nbsp;
                         <span className='hidden sm:flex'>Students</span>
                     </span>
