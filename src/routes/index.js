@@ -4,6 +4,7 @@ import CourseInfoPage from "../pages/CourseInfoPage";
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
+import Lecturer from "../pages/Lecturer";
 
 export const routes = [
     {
@@ -11,6 +12,7 @@ export const routes = [
         page: LoginLecturer,
         title: 'Login Page',
         role: 'Lecturer',
+        animatedBg: true,
         header: true
     },
     {
@@ -47,6 +49,13 @@ export const routes = [
         path: '/lecturer/dashboard/course',
         page: CourseInfoPage,
         title: 'Course Information',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard',
+        page: Lecturer,
+        title: 'Course List',
         role: 'lecturer',
         header: true
     }
