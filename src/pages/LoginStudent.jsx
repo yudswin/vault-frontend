@@ -18,12 +18,17 @@ const LoginStudent = () => {
     const goToCourseInfo = () => {
         navigate('/lecturer/dashboard/course')
     }
+
+    const goToLecturerLogin = () => {
+        navigate('/lecturer')
+    }
+
     return (
         <>
             <div className='flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40'>
-                <div className='flex sm:flex-row flex-col sm:gap-6 justify-center items-center py-6 text-center text-white font-black font-poppins '>
+                <div className='flex sm:flex-row flex-col sm:gap-6 justify-left items-center py-6 text-center text-white font-black font-poppins '>
                     <div className='sm:text-8xl text-[40px] uppercase text-stroke-black'>E-Checking</div>
-                    <div className='sm:text-3xl text-xl bg-blue-500 bg-opacity-80 sm:py-4 py-2 px-6 rounded-xl'>System</div>
+                    <div className='sm:text-3xl text-xl bg-blue-500 bg-opacity-80 sm:py-4 py-2 px-6 rounded-xl '>System</div>
                 </div>
                 <div className='animate-fade-in sm:w-[502px] w-full sm:bg-white sm:bg-opacity-40 sm:rounded-3xl sm:p-3 sm:shadow-2xl sm:border sm:border-black '>
                     <div className='mt-4 px-8'>
@@ -47,21 +52,14 @@ const LoginStudent = () => {
                             <span className='uppercase'>sign in</span>
                         </button>
                     </div>
+                    <div className='mt-4 font-poppins text-base flex justify-center items-center'>
+                    <span>You aren't a&nbsp;</span>
+                    <span className='text-blue-700'>Student?&nbsp;</span>
+                    <span>try as&nbsp;</span>
+                    <a href='' className='text-purple-800 underline' onClick={goToLecturerLogin}>Lecturer!</a>
                 </div>
-                <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-row items-center'>
-                    <span className=''>
-                        You aren't a &nbsp;
-                    </span>
-                    <span className='text-blue-700 flex flex-row items-center'>
-                        Student?&nbsp;
-                    </span>
-                    <span>
-                        try as&nbsp;
-                    </span>
-                    <a href='' className='text-purple-800 underline'>
-                        Lecturer!
-                    </a>
                 </div>
+                
             </div>
         </>
 

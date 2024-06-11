@@ -16,7 +16,7 @@ const LoginLecturer = () => {
     }
 
     const goToStudent = () => {
-        navigate('http://localhost:5173/')
+        navigate('/')
     }
     return (
         <>
@@ -47,21 +47,14 @@ const LoginLecturer = () => {
                             <span className='uppercase'>sign in</span>
                         </button>
                     </div>
+                    <div className='mt-4 font-poppins text-base flex justify-center items-center'>
+                       <span>You aren't a&nbsp;</span>
+                       <span className='text-purple-700'>Lecturer?&nbsp;</span>
+                       <span>try as&nbsp;</span>
+                       <a href='' className='text-blue-500 underline' onClick={goToStudent}>Student!</a>
+                    </div>
                 </div>
-                <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-row items-center'>
-                    <span className=''>
-                        You aren't a &nbsp;
-                    </span>
-                    <span className='text-purple-700 flex flex-row items-center'>
-                        Lecturer?&nbsp;
-                    </span>
-                    <span>
-                        try as&nbsp;
-                    </span>
-                    <a href='' className='text-blue-500 underline' onClick={goToStudent}>
-                        Student!
-                    </a>
-                </div>
+                
             </div>
         </>
 
