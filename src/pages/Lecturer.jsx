@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import * as CourseService from '../services/CourseService'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+import AddCourseModal from '../components/LecturerComponents/AddCourseModal'
 
 const Lecturer = () => {
     const navigate = useNavigate();
@@ -50,8 +51,9 @@ const Lecturer = () => {
             })
     }, [])
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const goToCreateCourse = () => {
-        navigate('/lecturer/dashboard/add-course')
+        setIsModalOpen(true);
     }
 
     return (
@@ -66,6 +68,7 @@ const Lecturer = () => {
                     <button onClick={goToCreateCourse} className='hover:animate-spin-slow transition'>
                         <PlusSquare size={40} />
                     </button>
+                    <AddCourseModal isOpen={isModalOpen} />
                 </div>
             </div>
             {/* fix animation later */}
