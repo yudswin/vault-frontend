@@ -49,10 +49,10 @@ const LoginStudent = () => {
     }
 
     const dispatch = useDispatch()
-    const handleGetDetailUser = async (id, token) => {
+    const handleGetDetailUser = async (id, access, refresh) => {
         dispatch(login({ role: 'student' }));
-        const res = await StudentService.getDetailStudent(id, token);
-        dispatch(updateStudent({ ...res?.data, accessToken: token }));
+        const res = await StudentService.getDetailStudent(id, access);
+        dispatch(updateStudent({ ...res?.data, accessToken: access, refreshToken: refresh}));
         // console.log(res?.data);
     };
 
@@ -61,6 +61,7 @@ const LoginStudent = () => {
             navigate('/dashboard')
             message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            localStorage.setItem('refreshToken', JSON.stringify(data?.refreshToken))
             localStorage.setItem('role', 'student');
             // console.log('Role:', localStorage.getItem('role'));
             // console.log('test', data)
@@ -68,7 +69,7 @@ const LoginStudent = () => {
                 const decoded = jwtDecode(data?.accessToken);
                 // console.log('decoded', decoded)
                 if (decoded?.id) {
-                    handleGetDetailUser(decoded?.id, data?.accessToken);
+                    handleGetDetailUser(decoded?.id, data?.accessToken, data?.refreshToken);
                 }
             }
         } else if (data?.status === "Error") {

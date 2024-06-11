@@ -14,11 +14,13 @@ import * as LecturerService from "./services/LecturerService";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { jwtDecode } from 'jwt-decode';
 import { isJsonString } from "./utils";
+import { message } from "antd";
 
 export default function App() {
   const dispatch = useDispatch()
   const queryClient = new QueryClient()
   const [isLoading, setIsLoading] = useState(false)
+  const [token, setToken] = useState('')
 
   const fetchStudentData = async (id, token) => {
     try {
@@ -27,6 +29,34 @@ export default function App() {
       // console.log(resStudent?.data)
     } catch (error) {
       // console.log(error)
+      studentRefreshToken(token)
+        .then(res => {
+          if (res?.status === "OK") {
+            localStorage.setItem('accessToken', res?.data.accessToken)
+            setToken(res?.data.accessToken)
+          }
+        })
+        .catch(err => {
+          // console.log(err);
+        })
+    }
+  }
+
+  const studentRefreshToken = async () => {
+    try {
+      let storageData = localStorage.getItem('refreshToken')
+      const res = await StudentService.refreshToken(storageData)
+      if (res?.status === "OK") {
+        localStorage.setItem('accessToken', res?.data.accessToken)
+        setToken(res?.data.accessToken)
+      } else if (res?.status === 401) {
+        message.error('login session expired')
+        localStorage.clear()
+        window.location.reload()
+      }
+      return res
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -36,6 +66,36 @@ export default function App() {
       dispatch(updateLecturer({ ...resLecturer?.data, accessToken: token }))
     } catch (error) {
       // console.log(error)
+      if (error.response?.status === 401) {
+        lecturerRefreshToken(token)
+          .then(res => {
+            if (res?.status === "OK") {
+              localStorage.setItem('accessToken', res?.data.accessToken)
+              setToken(res?.data.accessToken)
+            }
+          })
+          .catch(err => {
+            // console.log(err);
+          })
+      }
+    }
+  }
+
+  const lecturerRefreshToken = async () => {
+    try {
+      let storageData = localStorage.getItem('refeshToken')
+      const res = await LecturerService.refreshToken(storageData)
+      if (res?.status === "OK") {
+        localStorage.setItem('accessToken', res?.data.accessToken)
+        setToken(res?.data.accessToken)
+      } else if (res?.status === 401) {
+        message.error('login session expired')
+        localStorage.clear()
+        window.location.reload()
+      }
+      return res
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -81,7 +141,7 @@ export default function App() {
     }
 
     setIsLoading(false)
-  })
+  }, [token])
 
 
   return (

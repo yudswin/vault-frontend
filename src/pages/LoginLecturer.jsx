@@ -40,7 +40,7 @@ const LoginLecturer = () => {
     }
 
     const handleSignIn = () => {
-        console.log(`Signing in with ID: ${lecturerID} and lecturerPassword: ${lecturerPassword}`);
+        // console.log(`Signing in with ID: ${lecturerID} and lecturerPassword: ${lecturerPassword}`);
         // console.log(process.env.REACT_APP_TEST)
         mutation.mutate({
             lecturerID,
@@ -50,10 +50,10 @@ const LoginLecturer = () => {
 
 
     const dispatch = useDispatch()
-    const handleGetDetailUser = async (id, token) => {
+    const handleGetDetailUser = async (id, access, refresh) => {
         dispatch(login({ role: 'lecturer' }));
-        const res = await LecturerService.getDetailLecturer(id, token)
-        dispatch(updateLecturer({ ...res?.data, accessToken: token }))
+        const res = await LecturerService.getDetailLecturer(id, access)
+        dispatch(updateLecturer({ ...res?.data, accessToken: access, refreshToken: refresh}))
         // console.log(res?.data)
     }
 
@@ -62,13 +62,14 @@ const LoginLecturer = () => {
             navigate('/lecturer/dashboard')
             message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            localStorage.setItem('refreshToken', JSON.stringify(data?.refreshToken))
             localStorage.setItem('role', 'lecturer');
             // console.log('test', data)
             if (data?.accessToken) {
                 const decoded = jwtDecode(data?.accessToken);
                 // console.log('decoded', decoded)
                 if (decoded?.id) {
-                    handleGetDetailUser(decoded?.id, data?.accessToken);
+                    handleGetDetailUser(decoded?.id, data?.accessToken, data?.refreshToken);
                 }
             }
         } else if (data?.status === "Error") {
