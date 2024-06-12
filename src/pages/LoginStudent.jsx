@@ -26,11 +26,19 @@ const LoginStudent = () => {
     return (
         <>
             <div className='flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40'>
-                <div className='flex sm:flex-row flex-col sm:gap-6 justify-left items-center py-6 text-center text-white font-black font-poppins '>
+                <div className='flex sm:flex-row flex-col sm:gap-6 justify-center items-center py-6 text-center text-white font-black font-poppins'>
                     <div className='sm:text-8xl text-[40px] uppercase text-stroke-black'>E-Checking</div>
                     <div className='sm:text-3xl text-xl bg-blue-500 bg-opacity-80 sm:py-4 py-2 px-6 rounded-xl '>System</div>
                 </div>
+                
                 <div className='animate-fade-in sm:w-[502px] w-full sm:bg-white sm:bg-opacity-40 sm:rounded-3xl sm:p-3 sm:shadow-2xl sm:border sm:border-black '>
+                <div className="flex justify-center mt-4">    
+                <img
+                  className="h-56 w-56 rounded-full object-cover object-center "
+                  src="https://cdn.vectorstock.com/i/500p/23/77/book-icon-logo-vector-2982377.jpg"
+                  alt="book image"
+                />
+                </div>
                     <div className='mt-4 px-8'>
                         <label className="block font-poppins text-black pb-2" htmlFor="email" value="Email" > Username </label>
                         <input type='email'
