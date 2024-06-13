@@ -68,7 +68,7 @@ const Lecturer = () => {
                     <button onClick={goToCreateCourse} className='hover:animate-spin-slow transition'>
                         <PlusSquare size={40} />
                     </button>
-                    <AddCourseModal isOpen={isModalOpen} />
+                    <AddCourseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
                 </div>
             </div>
             {/* fix animation later */}
