@@ -1,4 +1,4 @@
-![Vault Logo](path/to/logo.png)
+![Vault Logo](src/assets/logo.png)
 
 # Vault - Student Management System
 
