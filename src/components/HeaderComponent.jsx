@@ -18,9 +18,10 @@ const HeaderComponent = ({ title, role }) => {
 
     const location = useLocation();
     const isForgotPage = location.pathname === '/forgot';
+    const isLoginPage = location.pathname === '/' || location.pathname === '/lecturer';
 
     const handleGoBack = () => {
-        if (isForgotPage) {
+        if (isForgotPage || isLoginPage) {
             navigate('/')
         } else if (role !== null) {
             role === 'student' ? navigate('/dashboard') : navigate('/lecturer/dashboard')

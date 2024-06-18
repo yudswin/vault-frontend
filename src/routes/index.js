@@ -64,7 +64,7 @@ export const routes = [
         path: '/forgot',
         page: ForgotPassword,
         title: 'Forgot Password',
-        role: 'student',
+        role: 'Helper',
         animatedBg: true,
         header: true
     }
