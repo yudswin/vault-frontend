@@ -38,7 +38,7 @@ const HeaderComponent = ({ title, role }) => {
                         <div className='text-sm capitalize'> {role} </div>
                     </div>
                 </div>
-                {title === 'Login Page' ? Fragment : <div className='flex flex-col space-x-2 capitalize items-center text-lg pr-[18px] sm:pr-0'>
+                {role ? Fragment : <div className='flex flex-col space-x-2 capitalize items-center text-lg pr-[18px] sm:pr-0'>
                     <button className='flex font-poppins text-gray-500 justify-center items-center gap-2 border-opacity-50 py-2 sm:px-4 rounded-md hover:text-black sm:hover:bg-slate-100 transition ease-in-out delay-50' onClick={() => setShowProfile(!showProfile)} type='button'>
                         <span className='hidden sm:flex capitalize'>
                             {userName ? userName : 'User'}
