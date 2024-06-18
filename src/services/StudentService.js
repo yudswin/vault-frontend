@@ -26,3 +26,8 @@ export const refreshToken = async (data) => {
     const res = await axios.post(`${API_URL}/student/refreshToken`, data)
     return res.data
 }
+
+export const forgotPassword = async (email) => {
+    const res = await axios.post(`${API_URL}/student/forgotPassword`, email)
+    return res.data
+}

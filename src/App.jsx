@@ -104,7 +104,7 @@ export default function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (title !== 'Login Page') {
+      if (title !== 'Login Page' && title !== 'Forgot Password') {
         if (!isAuthenticated && !localStorage.getItem('accessToken')) {
           navigate('/')
         }

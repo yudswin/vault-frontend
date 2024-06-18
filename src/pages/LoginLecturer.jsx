@@ -17,6 +17,10 @@ const LoginLecturer = () => {
         navigate('/')
     }
 
+    const goToForgot = () => {
+        navigate('/forgot')
+    }
+
     const [lecturerID, setLecturerID] = useState('')
     const [lecturerPassword, setPassword] = useState('')
 
@@ -53,7 +57,7 @@ const LoginLecturer = () => {
     const handleGetDetailUser = async (id, access, refresh) => {
         dispatch(login({ role: 'lecturer' }));
         const res = await LecturerService.getDetailLecturer(id, access)
-        dispatch(updateLecturer({ ...res?.data, accessToken: access, refreshToken: refresh}))
+        dispatch(updateLecturer({ ...res?.data, accessToken: access, refreshToken: refresh }))
         // console.log(res?.data)
     }
 
@@ -118,19 +122,25 @@ const LoginLecturer = () => {
                         </button>
                     </div>
                 </div>
-                <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-row items-center'>
-                    <span className=''>
-                        You aren't a &nbsp;
-                    </span>
-                    <span className='text-purple-700 flex flex-row items-center'>
-                        Lecturer?&nbsp;
-                    </span>
-                    <span>
-                        try as&nbsp;
-                    </span>
-                    <button className='text-blue-500 underline' onClick={goToStudent}>
-                        Student!
-                    </button>
+                <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-col items-center w-full gap-2'>
+                    <div>
+                        Forgot your password? &nbsp;
+                        <button onClick={goToForgot} className='text-blue-700 underline'>Reset it here!</button>
+                    </div>
+                    <div className='flex flex-row'>
+                        <span className=''>
+                            You aren't a &nbsp;
+                        </span>
+                        <span className='text-purple-700 flex flex-row items-center'>
+                            Lecturer?&nbsp;
+                        </span>
+                        <span>
+                            try as&nbsp;
+                        </span>
+                        <button className='text-blue-500 underline' onClick={goToStudent}>
+                            Student!
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

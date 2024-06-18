@@ -5,6 +5,7 @@ import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
 import Lecturer from "../pages/Lecturer";
+import ForgotPassword from "../pages/ForgotPassword"
 
 export const routes = [
     {
@@ -57,6 +58,14 @@ export const routes = [
         page: Lecturer,
         title: 'Course List',
         role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/forgot',
+        page: ForgotPassword,
+        title: 'Forgot Password',
+        role: 'student',
+        animatedBg: true,
         header: true
     }
 ]
