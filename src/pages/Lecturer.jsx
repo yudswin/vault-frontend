@@ -19,8 +19,10 @@ const Lecturer = () => {
                 setItemsPerPage(8);
             } else if (window.innerWidth >= 1436) {
                 setItemsPerPage(6);
-            } else {
+            } else if (window.innerWidth >= 1024) {
                 setItemsPerPage(4);
+            } else {
+                setItemsPerPage(2);
             }
         };
 
