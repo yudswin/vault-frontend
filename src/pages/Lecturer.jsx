@@ -41,6 +41,12 @@ const Lecturer = () => {
     const queryCourse = useQuery({ queryKey: ['courses'], queryFn: getAllCourses })
     const { isLoading: isLoadingCourses, data: dataCourses, error: errorCourses } = queryCourse
 
+    const [courseCreated, setCourseCreated] = useState(false);
+
+    const handleCourseCreated = () => {
+        setCourseCreated(prevState => !prevState);
+    };
+    
     useEffect(() => {
         getAllCourses()
             .then(res => {
@@ -49,12 +55,15 @@ const Lecturer = () => {
             .catch(err => {
                 console.log(err);
             })
-    }, [])
+    }, [courseCreated])
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const goToCreateCourse = () => {
         setIsModalOpen(true);
     }
+
+    
+
 
     return (
         <div className={`${courseList > 8 ? `sm:h-full` : `sm:h-svh`} sm:flex hidden bg-gradient-to-tr from-violet-400 to-sky-200 p-4 flex-col gap-2 `}>
@@ -68,7 +77,7 @@ const Lecturer = () => {
                     <button onClick={goToCreateCourse} className='hover:animate-spin-slow transition'>
                         <PlusSquare size={40} />
                     </button>
-                    <AddCourseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+                    <AddCourseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} onCourseCreated={handleCourseCreated}/>
                 </div>
             </div>
             {/* fix animation later */}
