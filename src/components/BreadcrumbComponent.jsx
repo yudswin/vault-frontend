@@ -1,5 +1,5 @@
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Student, User, House, Folder, File, Barcode } from '@phosphor-icons/react'
 
 const iconMapping = {
@@ -20,11 +20,16 @@ const DefaultIcon = {
 
 const BreadcrumbComponent = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const pathnames = location.pathname.split('/').filter((x) => x);
     const user = pathnames.shift().toLowerCase();
     
     // console.log(pathnames)
     // console.log(location)
+
+    const handleNavigate = (to) => () => {
+        navigate(to);
+    }
 
     return (
         <div className='flex  w-max px-4 rounded-lg'>
@@ -38,7 +43,7 @@ const BreadcrumbComponent = () => {
                     const Icon = (iconMapping[value.toLowerCase()] || DefaultIcon[index])
                     // console.log(to)  
                     return (
-                        <BreadcrumbItem key={index} href={to} className="p-2 group">
+                        <BreadcrumbItem key={index} onClick={handleNavigate(to)}className="p-2 group">
                             <Icon size={24} weight="thin" />
                             <span className='capitalize p-2 font-extralight font-poppins text-lg hover:underline sm:flex hidden'>{value}</span>
                         </BreadcrumbItem>
