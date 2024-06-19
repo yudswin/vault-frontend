@@ -30,7 +30,7 @@ const SessionCard = ({ session }) => {
     const { course } = useParams()
     const monthNumber = monthNames.indexOf(mockDate.month) + 1;
     const goToCard = () => {
-        navigate(`/lecturer/dashboard/${course}/${session.code}/review`)
+        navigate(`/lecturer/dashboard/${course}/${session.code}`)
     }
 
     const [totalRecord, setTotalRecord] = useState(0);

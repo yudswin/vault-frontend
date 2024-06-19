@@ -56,7 +56,26 @@ const CourseInfoPage = () => {
 
     const [sessionList, setSessionList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 12;
+    const [itemsPerPage, setItemsPerPage] = useState(8);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1280) {
+                setItemsPerPage(8);
+            } else if (window.innerWidth >= 1024) {
+                setItemsPerPage(6);
+            } else {
+                setItemsPerPage(4);
+            }
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const totalPages = Math.ceil(sessionList.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -118,7 +137,7 @@ const CourseInfoPage = () => {
 
 
     return (
-        <div className={`sm:h-full h-full bg-gradient-to-tr from-violet-400 to-sky-200`}>
+        <div className={`sm:h-full h-svh bg-gradient-to-tr from-violet-400 to-sky-200`}>
             <CourseNavbar onCourseCreated={handleCourseCreated} />
             <div className="p-4">
                 <BreadcrumbComponent />

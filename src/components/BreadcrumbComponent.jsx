@@ -43,7 +43,7 @@ const BreadcrumbComponent = () => {
                     const Icon = (iconMapping[value.toLowerCase()] || DefaultIcon[index])
                     // console.log(to)  
                     return (
-                        <BreadcrumbItem key={index} onClick={handleNavigate(to)}className="p-2 group">
+                        <BreadcrumbItem key={index} onPress={handleNavigate(to)} className="p-2 group">
                             <Icon size={24} weight="thin" />
                             <span className='capitalize p-2 font-extralight font-poppins text-lg hover:underline sm:flex hidden'>{value}</span>
                         </BreadcrumbItem>
