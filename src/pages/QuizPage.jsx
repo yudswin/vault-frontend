@@ -4,6 +4,10 @@ import { message } from 'antd';
 import * as CourseService from '../services/CourseService';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as AttendanceService from '../services/AttendanceService';
+import { jwtDecode } from 'jwt-decode';
+import { isJsonString } from '../utils';
+import * as RecordService from '../services/RecordService';
+import { useSelector } from 'react-redux';
 
 
 const QuizPage = () => {
@@ -55,18 +59,39 @@ const QuizPage = () => {
             // console.error("Error fetching course name:", error);
         }
     }
+
+    // get sessionID
+    const [sessionID, setSessionID] = useState('');
+
     const navigate = useNavigate();
 
-    const handleComplete = () => {
-        message.success('Quiz submitted!');
-        navigate('/dashboard');
+    const student = useSelector(state => state.student)
+    const handleComplete = async () => {
+    try {
+
+        
+        const formData = new FormData();
+        formData.append('submissionPath[]', file);
+        formData.append('sessionID', sessionID);
+        formData.append('studentID', student.studentID);
+        const res = await RecordService.create(sessionID, formData);
+        if (res?.status === "OK") {
+            message.success('Quiz submitted successfully');
+            // navigate('/dashboard');
+        } else if (res?.status === "ERR") {
+            message.error(res?.message);
+        }
+    } catch (error) {
+        console.error("Error completing quiz:", error);
     }
+}
 
     const fetchSession = async () => {
         const res = await AttendanceService.getDetailsByCode(code);
         if (res?.status === "OK") {
             setSessionCode(code);
             setSessionQuiz(res.data.quiz);
+            setSessionID(res.data._id);
             fetchCourseName(res.data.courseID);
         } else if (res?.status === "ERR") {
             message.error(res?.message);

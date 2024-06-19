@@ -35,8 +35,8 @@ const TableComponent = ({ record }) => {
             title: 'File Upload',
             dataIndex: 'fileUpload',
             render: (text, record) => (
-                <a href={record.fileUpload} target="_blank" rel="noopener noreferrer">
-                    {record.fileUpload === 'No file uploaded' ? 'No file uploaded' : 'View'}
+                <a href={record.fileUpload} target="_blank" rel="noopener noreferrer" download>
+                    {record.fileUpload === 'No file uploaded' ? 'No file uploaded' : text}
                 </a>
             ),
         },
@@ -62,7 +62,7 @@ const TableComponent = ({ record }) => {
 
     useEffect(() => {
         if (record) {
-            
+            console.log('record', record);
             const newData = record.map((item, index) => ({
                 key: index,
                 index: index + 1,
@@ -71,7 +71,6 @@ const TableComponent = ({ record }) => {
                 joinAt: formatDate(item.createdAt),
                 fileUpload: item.fileUpload ? item.fileUpload : 'No file uploaded',
             }));
-
 
             while (newData.length < 8) {
                 newData.push({
