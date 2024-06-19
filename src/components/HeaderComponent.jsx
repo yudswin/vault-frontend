@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import logo from '../assets/Logo.svg'
+import logo from '../assets/logoLight.png'
 import { CaretDown, Faders, List, SignOut } from '@phosphor-icons/react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 const HeaderComponent = ({ title, role }) => {
@@ -16,6 +16,18 @@ const HeaderComponent = ({ title, role }) => {
         window.location.reload()
     }
 
+    const location = useLocation();
+    const isForgotPage = location.pathname === '/forgot';
+    const isLoginPage = location.pathname === '/' || location.pathname === '/lecturer';
+
+    const handleGoBack = () => {
+        if (isForgotPage || isLoginPage) {
+            navigate('/')
+        } else if (role !== null) {
+            role === 'student' ? navigate('/dashboard') : navigate('/lecturer/dashboard')
+        } else return
+    }
+
     const goToAccount = () => {
         navigate('/' + role + 'Account')
     }
@@ -24,21 +36,22 @@ const HeaderComponent = ({ title, role }) => {
         if (localStorage.getItem('accessToken')) {
             setUserName(user?.firstName + ' ' + user?.lastName);
         }
+        // console.log(title);
     }, [user]);
 
     return (
         <>
             <header className='bg-white w-full flex justify-between sm:px-6 lg:px-8 items-center align-middle shadow-xl border-b border-black'>
                 <div className='flex'>
-                    <a href="#" className='-m-1.5 p-1.5'>
+                    <button onClick={handleGoBack} title="Back to home" className='-m-1.5 p-1.5 hover:animate-fade transition hover:scale-105'>
                         <img src={logo} alt="logo" className='w-auto h-20 items-center' />
-                    </a>
+                    </button>
                     <div className='hidden sm:flex flex-col gap-0.5 uppercase text-left justify-center font-poppins text-gray-500'>
                         <div className='text-lg uppercase'> {title} </div>
                         <div className='text-sm capitalize'> {role} </div>
                     </div>
                 </div>
-                {title === 'Login Page' ? Fragment : <div className='flex flex-col space-x-2 capitalize items-center text-lg pr-[18px] sm:pr-0'>
+                {title === 'Login Page' || title === 'Forgot Password' ? Fragment : <div className='flex flex-col space-x-2 capitalize items-center text-lg pr-[18px] sm:pr-0'>
                     <button className='flex font-poppins text-gray-500 justify-center items-center gap-2 border-opacity-50 py-2 sm:px-4 rounded-md hover:text-black sm:hover:bg-slate-100 transition ease-in-out delay-50' onClick={() => setShowProfile(!showProfile)} type='button'>
                         <span className='hidden sm:flex capitalize'>
                             {userName ? userName : 'User'}

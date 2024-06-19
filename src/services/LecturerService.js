@@ -21,3 +21,18 @@ export const getAllLecturers = async () => {
     const res = await axios.get(`${API_URL}/lecturer/getAll`)
     return res.data
 }
+
+export const refreshToken = async (data) => {
+    const res = await axios.post(`${API_URL}/lecturer/refreshToken`, data)
+    return res.data
+}
+
+export const forgotPassword = async (email) => {
+    const res = await axios.post(`${API_URL}/lecturer/forgotPassword`, email)
+    return res.data
+}
+
+export const verifyOTP = async (data) => {
+    const res = await axios.post(`${API_URL}/lecturer/verifyOtp`, data)
+    return res.data
+}

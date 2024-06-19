@@ -1,39 +1,70 @@
 import { CalendarBlank, ListMagnifyingGlass, Users } from '@phosphor-icons/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import * as RecordService from '../../services/RecordService';
 
 const gradients = [
-    // 'bg-gradient-to-r from-green-400 to-blue-500',
-    // 'bg-gradient-to-r from-red-400 to-yellow-500',
-    // 'bg-gradient-to-r from-purple-400 to-pink-500',
-    // 'bg-gradient-to-r from-blue-400 to-indigo-500',
     'bg-white',
     'bg-red-400',
     'bg-yellow-400',
     'bg-green-400',
-];
+]
 
 function getRandomGradient() {
     const randomIndex = Math.floor(Math.random() * gradients.length);
     return gradients[randomIndex];
 }
 
-const mockDate = {
-    day: '15',
-    month: 'November',
-    year: '2022'
-};
+
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const SessionCard = ({ studentNum, date }) => {
+const SessionCard = ({ session }) => {
+    // console.log(session)
+    const navigate = useNavigate()
+    const mockDate = new Date(session?.createdAt)
+    const day = mockDate.getDate();
+    const month = mockDate.getMonth() + 1;
+    const year = mockDate.getFullYear();
+    // console.log(mockDate)
+    const { course } = useParams()
     const monthNumber = monthNames.indexOf(mockDate.month) + 1;
+    const goToCard = () => {
+        navigate(`/lecturer/dashboard/${course}/${session.code}`)
+    }
+
+    const [totalRecord, setTotalRecord] = useState(0);
+
+    const fetchTotalRecords = async () => {
+        try {
+            const res = await RecordService.getTotal(session._id);
+            return res;
+        } catch (error) {
+            console.error("Error fetching total records:", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchTotalRecords()
+            .then(res => {
+                setTotalRecord(res.data);
+            })
+            .catch(err => {
+                console.error("Error fetching total records:", err);
+            })
+    }, [totalRecord])
+
+
     return (
-        <a href='' className={`sm:p-5 p-4 ${getRandomGradient()} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>
+        <div
+            className={`sm:p-5 p-4 ${session?.type === 'Quiz' ? 'bg-white' : 'bg-red-400'} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>
             <div className='bg-white p-2 flex  sm:relative sm:justify-center justify-between rounded-xl sm:items-center group'>
-                <span className='cursor-pointer uppercase font-poppins text-xl group-hover:scale-110'>
-                    CodeXD
+                <span className='uppercase font-poppins text-xl'>
+                    {session ? session.code : 'CODEXD'}
                 </span>
-                <button className='sm:absolute sm:flex hidden right-2 hover:scale-110 p-1 border-[1px] border-black rounded-lg hover:bg-slate-100'>
+                <button
+                    onClick={goToCard}
+                    className='sm:absolute sm:flex hidden right-2 hover:scale-110 p-1 border-[1px] border-black rounded-lg hover:bg-slate-100'>
                     <ListMagnifyingGlass size={20} weight="light" />
                 </button>
             </div>
@@ -43,7 +74,7 @@ const SessionCard = ({ studentNum, date }) => {
                         <Users size={20} weight="light" />
                     </span>
                     <span className='font-montserrat flex'>
-                        {studentNum ? studentNum : 0}
+                        {totalRecord ? totalRecord : 'No Record'}
                         &nbsp;
                         <span className='hidden sm:flex'>Students</span>
                     </span>
@@ -55,16 +86,16 @@ const SessionCard = ({ studentNum, date }) => {
                     <span className='font-montserrat text-black flex'>
                         {mockDate ?
                             <>
-                                <span>{mockDate.day}</span>
+                                <span>{day < 10 ? '0' + day : day}</span>
                                 <span className='sm:flex hidden'>&nbsp;</span>
-                                <span className='sm:flex hidden'>{mockDate.month}&nbsp;</span>
-                                <span className='sm:hidden flex'>/{monthNumber < 10 ? '0' + monthNumber : monthNumber}&nbsp;</span>
-                                <span className='sm:flex hidden'>{mockDate.year}&nbsp;</span>
+                                <span className='sm:flex hidden'>{month < 10 ? '0' + month : month}&nbsp;</span>
+                                <span className='sm:hidden flex'>/{month < 10 ? '0' + month : month}&nbsp;</span>
+                                <span className='sm:flex hidden'>{year}&nbsp;</span>
                             </> : '##/Month/####'}
                     </span>
                 </div>
             </div>
-        </a>
+        </div>
     )
 }
 

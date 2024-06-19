@@ -4,6 +4,10 @@ import CourseInfoPage from "../pages/CourseInfoPage";
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
+import Lecturer from "../pages/Lecturer";
+import ForgotPassword from "../pages/ForgotPassword"
+import ReviewCode from "../pages/ReviewCode";
+import SessionInfoPage from "../pages/SessionInfoPage";
 
 export const routes = [
     {
@@ -11,6 +15,7 @@ export const routes = [
         page: LoginLecturer,
         title: 'Login Page',
         role: 'Lecturer',
+        animatedBg: true,
         header: true
     },
     {
@@ -44,10 +49,39 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/dashboard/course',
+        path: '/lecturer/dashboard/:course',
         page: CourseInfoPage,
         title: 'Course Information',
         role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard',
+        page: Lecturer,
+        title: 'Course List',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard/:course/:session/review',
+        page: ReviewCode,
+        title: 'Quiz',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard/:course/:session',
+        page: SessionInfoPage,
+        title: 'Session Information',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/forgot',
+        page: ForgotPassword,
+        title: 'Forgot Password',
+        role: 'Helper',
+        animatedBg: true,
         header: true
     }
 ]

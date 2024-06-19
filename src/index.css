@@ -13,6 +13,7 @@
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    /* height: 100%; */
 }
 
 @layer components {
@@ -21,8 +22,96 @@
         margin: 0 auto;
     }
 
+    .text-stroke-black {
+        -webkit-text-stroke: 2px black;
+    }
+
+    .text-stroke-purple {
+        -webkit-text-stroke: 2px purple;
+    }
+
+
+    .hinside {
+        @apply h-[calc(100%-133px)];
+    }
+
     .input {
         @apply sm:flex-1 max-sm:w-full text-base leading-normal text-slate-gray pl-5 max-sm:p-5 outline-none sm:border-none border max-sm:border-slate-gray max-sm:rounded-full;
+    }
+
+    .course-modal .ant-modal-content {
+        @apply bg-opacity-85 bg-white rounded-xl p-8
+    }
+
+    .session-success-modal .ant-modal-content {
+        @apply bg-opacity-85 bg-green-200 rounded-xl sm:w-[800px] w-[calc(100vw-30px)] sm:p-10 p-4
+    } 
+
+    .antd-table {
+        .ant-table {
+            .ant-table-container {
+                @apply bg-white rounded-none shadow-xl;
+            }
+
+            table {
+                @apply border-collapse border border-black ;
+
+                thead {
+                    @apply border-opacity-70 backdrop-blur-sm bg-gradient-to-tr from-violet-400 to-sky-200 border-b border-black;
+                }
+
+                thead > tr > .ant-table-cell {
+                    @apply bg-opacity-30 bg-white hover:bg-transparent text-black border-b-2 border-black  ;
+                }
+
+                th:nth-child(1), td:nth-child(1) {
+                    @apply w-[40px] tabular-nums  ;
+                }
+
+                th:nth-child(2), td:nth-child(2) {
+                    @apply w-[45px];
+                }
+
+                th:nth-child(3), td:nth-child(3) {
+                    @apply w-[200px];
+                }
+
+                th:nth-child(4), td:nth-child(4) {
+                    @apply w-[350px];
+                }
+
+                th:nth-child(5), td:nth-child(5) {
+                    @apply w-[150px];
+                }
+
+                thead > tr:first-child > *:first-child,
+                thead > tr:first-child > *:last-child {
+                    border-start-start-radius: 0px;
+                    border-start-end-radius: 0px;
+                }
+
+
+                .ant-table-cell {
+                    @apply rounded-s-none border-none;
+                }
+            }
+        }
+
+        /* .table-wrapper .ant-table-container table > thead > tr:first-child > *:first-child {
+            border-start-start-radius: 0px;
+        } */
+
+        .ant-pagination-item {
+            @apply bg-white rounded-none shadow-sm border-[1px] border-black;
+
+            a {
+                @apply text-black
+            }
+        }
+
+        .ant-pagination-prev & .ant-pagination-next {
+            @apply bg-white rounded-none shadow-sm border-[1px] border-black;
+        }
     }
 }
 

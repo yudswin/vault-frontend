@@ -17,6 +17,10 @@ const LoginStudent = () => {
         navigate('/lecturer')
     }
 
+    const goToForgot = () => {
+        navigate('/forgot')
+    }
+    
     const [studentID, setStudentID] = useState('')
     const [password, setPassword] = useState('')
 
@@ -49,10 +53,10 @@ const LoginStudent = () => {
     }
 
     const dispatch = useDispatch()
-    const handleGetDetailUser = async (id, token) => {
+    const handleGetDetailUser = async (id, access, refresh) => {
         dispatch(login({ role: 'student' }));
-        const res = await StudentService.getDetailStudent(id, token);
-        dispatch(updateStudent({ ...res?.data, accessToken: token }));
+        const res = await StudentService.getDetailStudent(id, access);
+        dispatch(updateStudent({ ...res?.data, accessToken: access, refreshToken: refresh }));
         // console.log(res?.data);
     };
 
@@ -61,6 +65,7 @@ const LoginStudent = () => {
             navigate('/dashboard')
             message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            localStorage.setItem('refreshToken', JSON.stringify(data?.refreshToken))
             localStorage.setItem('role', 'student');
             // console.log('Role:', localStorage.getItem('role'));
             // console.log('test', data)
@@ -68,7 +73,7 @@ const LoginStudent = () => {
                 const decoded = jwtDecode(data?.accessToken);
                 // console.log('decoded', decoded)
                 if (decoded?.id) {
-                    handleGetDetailUser(decoded?.id, data?.accessToken);
+                    handleGetDetailUser(decoded?.id, data?.accessToken, data?.refreshToken);
                 }
             }
         } else if (data?.status === "Error") {
@@ -83,7 +88,7 @@ const LoginStudent = () => {
     return (
         <>
             <div className='flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40'>
-                <div className='flex sm:flex-row flex-col sm:gap-6 justify-center items-center py-6 text-center text-white font-black font-poppins '>
+                <div className='animate-fade-in flex sm:flex-row flex-col sm:gap-6 justify-center items-center py-6 text-center text-white font-black font-poppins '>
                     <div className='sm:text-8xl text-[40px] uppercase text-stroke-black'>E-Checking</div>
                     <div className='sm:text-3xl text-xl bg-blue-500 bg-opacity-80 sm:py-4 py-2 px-6 rounded-xl'>System</div>
                 </div>
@@ -118,19 +123,25 @@ const LoginStudent = () => {
                         </button>
                     </div>
                 </div>
-                <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-row items-center'>
-                    <span className=''>
-                        You aren't a &nbsp;
-                    </span>
-                    <span className='text-blue-700 flex flex-row items-center'>
-                        Student?&nbsp;
-                    </span>
-                    <span>
-                        try as&nbsp;
-                    </span>
-                    <button onClick={goToLecturer} className='text-purple-800 underline'>
-                        Lecturer!
-                    </button>
+                <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-col items-center w-full gap-2'>
+                    <div>
+                        Forgot your password? &nbsp;
+                        <button onClick={goToForgot} className='text-blue-700 underline'>Reset it here!</button>
+                    </div>
+                    <div className='flex flex-row'>
+                        <span className=''>
+                            You aren't a &nbsp;
+                        </span>
+                        <span className='text-blue-700 flex flex-row items-center'>
+                            Student?&nbsp;
+                        </span>
+                        <span>
+                            try as&nbsp;
+                        </span>
+                        <button onClick={goToLecturer} className='text-purple-800 underline'>
+                            Lecturer!
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
