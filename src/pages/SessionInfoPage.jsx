@@ -97,7 +97,7 @@ const SessionInfoPage = () => {
                         <span className='sm:flex hidden'>Review Code</span>
                     </button>
                 </div> */}
-                <div id='table-container' className='pt-12 flex gap-8'>
+                <div id='table-container' className='pt-4 flex gap-8'>
                     <TableComponent record={data}/>
                 </div>
             </div>

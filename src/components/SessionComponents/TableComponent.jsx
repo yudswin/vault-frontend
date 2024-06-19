@@ -73,7 +73,7 @@ const TableComponent = ({ record }) => {
             }));
 
 
-            while (newData.length < 10) {
+            while (newData.length < 8) {
                 newData.push({
                     key: newData.length,
                     index: newData.length + 1,
@@ -97,7 +97,7 @@ const TableComponent = ({ record }) => {
         },
     };
 
-    return <Table rowSelection={rowSelection} columns={columns} dataSource={data} className='w-full antd-table' />;
+    return <Table pagination={{ pageSize: 8 }} rowSelection={rowSelection} columns={columns} dataSource={data} className='w-full antd-table' />;
 };
 
 export default TableComponent;

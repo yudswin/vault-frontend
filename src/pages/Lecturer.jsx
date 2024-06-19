@@ -98,7 +98,7 @@ const Lecturer = () => {
                 </div>
             </div>
             {/* fix animation later */}
-            <div id="card-container" className='pt-2 px-8 justify-center items-center flex flex-wrap w-full h-[700px] gap-8 transition-all'>
+            <div id="card-container" className='pt-2 px-8 justify-center items-center flex flex-wrap w-full h-[650px] gap-4 transition-all'>
                 {currentCourses.map((course, index) => (
                     <div className={`transition delay-[${index * 1000}ms]`} key={`${currentPage}-${index}`}>
                         <CourseCard course={course} />
