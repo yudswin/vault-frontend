@@ -3,8 +3,10 @@ import * as StudentService from '../services/StudentService'
 import * as LecturerService from '../services/LecturerService'
 import * as message from '../components/MessageModal'
 import PasswordStrengthMeter from '../components/LoginComponent/PasswordStrengthMeter'
+import { useNavigate } from 'react-router-dom'
 
 const ForgotPassword = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const handleOnChangeEmail = (e) => {
         setEmail(e.target.value)
@@ -15,12 +17,15 @@ const ForgotPassword = () => {
         setRole(e.target.value)
     }
 
+    const [forgot, setForgot] = useState(true)
+
     const handleForgot = async () => {
         try {
             if (role === 'lecturer') {
                 const res = await LecturerService.forgotPassword({ email: email })
                 if (res?.status === "OK") {
                     setShowOtpInput(true);
+                    setForgot(false)
                     message.success(res?.message);
                 } else {
                     message.error(res?.message);
@@ -29,6 +34,7 @@ const ForgotPassword = () => {
                 const res = await StudentService.forgotPassword({ email: email })
                 if (res?.status === "OK") {
                     setShowOtpInput(true);
+                    setForgot(false)
                     message.success(res?.message);
                 } else {
                     message.error(res?.message);
@@ -68,6 +74,8 @@ const ForgotPassword = () => {
                 if (res?.status === "OK") {
                     message.success(res?.message);
                     // window.location.href = '/reset-password';
+                    setShowChangePass(true)
+                    setShowOtpInput(false)
                 } else {
                     message.error(res?.message);
                 }
@@ -75,7 +83,8 @@ const ForgotPassword = () => {
                 const res = await StudentService.verifyOTP(data)
                 if (res?.status === "OK") {
                     message.success(res?.message);
-                    // window.location.href = '/reset-password';
+                    setShowChangePass(true)
+                    setShowOtpInput(false)
                 } else {
                     message.error(res?.message);
                 }
@@ -104,12 +113,34 @@ const ForgotPassword = () => {
     const handleChangePassword = async () => {
         if (newPassword == confirmPassword) {
             const otp = input1 + input2 + input3 + input4;
-            data = {
+            const data = {
                 email: email,
                 otp: otp,
-                password: newPassword
+                newPassword: newPassword,
+                confirmPassword: confirmPassword
             }
-            console.log(data)
+            try {
+                if (role === 'lecturer') {
+                    const res = await LecturerService.changePassword(data)
+                    if (res?.status === "OK") {
+                        message.success(res?.message);
+                        navigate('/lecturer')
+                    } else {
+                        message.error(res?.message);
+                    }
+                } else if (role === 'student') {
+                    const res = await StudentService.changePassword(data)
+                    if (res?.status === "OK") {
+                        message.success(res?.message);
+                        navigate('/')
+                        // window.location.href = '/login';
+                    } else {
+                        message.error(res?.message);
+                    }
+                } else return
+            } catch (error) {
+                message.error("Failed to change password")
+            }
         } else {
             message.error("Password does not match")
         }
@@ -122,7 +153,7 @@ const ForgotPassword = () => {
 
     return (
         <>
-            {!showOtpInput && (
+            {forgot && (
                 <div className='animate-fade-in flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40 transition ease-linear'>
                     <div className='animate-fade-in sm:w-[502px] w-full sm:bg-white sm:bg-opacity-40 sm:rounded-3xl sm:p-3 sm:shadow-2xl sm:border sm:border-black '>
                         <div className='px-8 py-4 flex flex-col gap-2'>
@@ -159,7 +190,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
             )}
-            {!showOtpInput && (
+            {showOtpInput && (
                 <div className='animate-fade-in flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40 transition ease-linear'>
                     <div className='animate-fade-in sm:w-[502px] w-full sm:bg-white sm:bg-opacity-40 sm:rounded-3xl sm:p-3 sm:shadow-2xl sm:border sm:border-black '>
                         <div className='px-8 py-4 flex flex-col gap-2'>
@@ -188,7 +219,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
             )}
-            {showOtpInput && (
+            {showChangePass && (
                 <div className='animate-fade-in flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40 transition ease-linear'>
                     <div className='animate-fade-in sm:w-[502px] w-full sm:bg-white sm:bg-opacity-40 sm:rounded-3xl sm:p-3 sm:shadow-2xl sm:border sm:border-black '>
                         <div className='px-8 py-4 flex flex-col gap-2'>
