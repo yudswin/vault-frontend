@@ -31,3 +31,8 @@ export const forgotPassword = async (email) => {
     const res = await axios.post(`${API_URL}/student/forgotPassword`, email)
     return res.data
 }
+
+export const verifyOTP = async (data) => {
+    const res = await axios.post(`${API_URL}/student/verifyOtp`, data)
+    return res.data
+}

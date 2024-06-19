@@ -9,8 +9,7 @@ const GradientBackground = ({ children, role }) => {
         } else if (role === 'Lecturer') {
             setColor('purple');
         }
-        console.log(color)
-
+        // console.log(color)
     }, [role]);
 
     return (

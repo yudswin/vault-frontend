@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const PasswordStrengthMeter = ({ password }) => {
+const PasswordStrengthMeter = ({ password, onStrengthChange }) => {
     const hasLength = () => password.length > 7
     const hasLowerCase = () => /[a-z]/.test(password)
     const hasUpperCase = () => /[A-Z]/.test(password)
@@ -36,18 +36,38 @@ const PasswordStrengthMeter = ({ password }) => {
         }
     }
 
+    function getWidth(strength) {
+        switch (strength) {
+            case 0:
+                return 'hidden'
+            case 1:
+                return 'w-1/5'
+            case 2:
+                return 'w-2/5'
+            case 3:
+                return 'w-3/5'
+            case 4:
+                return 'w-4/5'
+            case 5:
+                return 'w-5/5'
+            default:
+                return 'w-0/5'
+        }
+    }
+
     const strength = calculateStrength()
     const barColor = getColor(strength)
-    const barWidth = `w-${strength}/5`
+    const barWidth = getWidth(strength)
 
-    // useEffect(() => {
-    //     console.log(hasLength())
-    // }, [password])
+    useEffect(() => {
+        const strength = calculateStrength()
+        onStrengthChange(strength)
+    }, [password, onStrengthChange])
 
     return (
         <div className='flex flex-col gap-2'>
             <div id='meter-container' className='w-full bg-gray-300 border rounded-full h-3 border-black shadow-md'>
-                <div className={`${barColor} ${barWidth} h-full transition ease-in-out delay-150 rounded-full`}>
+                <div className={`${barColor} ${barWidth} h-full transition ease-in-out delay-200 rounded-full`}>
                 </div>
             </div>
             <div id='warning' className='py-2 flex flex-col items-center border border-black bg-white opacity-45 rounded-xl font-poppins text-base'>

@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { jwtDecode } from 'jwt-decode';
 import { isJsonString } from "./utils";
 import { message } from "antd";
+import EmptyComponent from "./components/EmptyComponent";
 
 export default function App() {
   const dispatch = useDispatch()
@@ -152,7 +153,7 @@ export default function App() {
             <Routes>
               {routes.map((route) => {
                 const Page = route.page;
-                const Background = route.animatedBg ? GradientBackground : Fragment;
+                const Background = route.animatedBg ? GradientBackground : EmptyComponent;
                 return (
                   <Route key={route.path} path={route.path} element={
                     <AuthWrapper title={route.title}>
