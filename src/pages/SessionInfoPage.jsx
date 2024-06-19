@@ -43,7 +43,7 @@ const SessionInfoPage = () => {
             if (!id) return;
             const res = await RecordService.getAll(id)
             if (res?.status === "OK") {
-                console.log("Record res", res);
+                // console.log("Record res", res);
                 setData(res.data);
                 return res;
             } else if (res?.status === "ERR") {
@@ -59,7 +59,7 @@ const SessionInfoPage = () => {
     }, [sessionDetail])
 
     useEffect(() => {
-        console.log(data);
+        // console.log(data);
     }, [data])
 
     return (
