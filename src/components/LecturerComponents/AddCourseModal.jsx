@@ -24,13 +24,13 @@ const AddCourseModal = ({ isOpen, setIsOpen, onCourseCreated }) => {
     const handleCreate = async () => {
         let storageData = JSON.parse(localStorage.getItem('accessToken'));
         const decoded = jwtDecode(storageData);
-        console.log(decoded);
+        // console.log(decoded);
         const res = await CourseService.create({
             name: name,
             description: description,
             lecturerId: decoded.id,
         }, storageData, decoded.id);
-        console.log(res?.data);
+        // console.log(res?.data);
         if (res?.status === "OK") {
             message.success('Course created!');
             onCourseCreated();

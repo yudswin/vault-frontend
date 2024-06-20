@@ -18,3 +18,7 @@ export const getTotal = async (sessionId) => {
     return res.data
 }
 
+export const create = async (sessionId, data) => {
+    const res = await axiosJWT.post(`${API_URL}/record/create/${sessionId}`, data)
+    return res.data
+}

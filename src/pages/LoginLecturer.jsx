@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode'
 import { updateLecturer } from '../redux/slices/lecturerSlice'
 import { login } from '../redux/slices/authSlice'
 import * as message from '../components/MessageModal'
-
+import logo from '../assets/BigLogoWhite.png'
 
 
 const LoginLecturer = () => {
@@ -88,8 +88,7 @@ const LoginLecturer = () => {
         <>
             <div className='flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40'>
                 <div className='flex sm:flex-row flex-col sm:gap-6 justify-center items-center py-6 text-center text-white font-black font-poppins '>
-                    <div className='sm:text-8xl text-[40px] uppercase text-stroke-black'>E-Checking</div>
-                    <div className='sm:text-3xl text-xl bg-purple-500 bg-opacity-80 sm:py-4 py-2 px-6 rounded-xl'>System</div>
+                    <img src={logo} alt="Logo" className='max-h-72' />
                 </div>
                 <div className='animate-fade-in sm:w-[502px] w-full sm:bg-purple-300 sm:bg-opacity-40 sm:rounded-3xl sm:p-3 sm:shadow-2xl sm:border sm:border-black '>
                     <div className='mt-4 px-8'>
@@ -114,7 +113,11 @@ const LoginLecturer = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="my-4 mt-8 flex justify-center gap-3">
+                    <div className="my-4 mt-6 flex flex-col justify-center items-center gap-3">
+                        <div className='font-poppins text-sm'>
+                            Forgot your password? &nbsp;
+                            <button onClick={goToForgot} className='text-blue-700 underline'>Reset it here!</button>
+                        </div>
                         <button onClick={handleSignIn}
                             disabled={!lecturerID || !lecturerPassword}
                             className=" bg-purple-600 hover:bg-purple-300 text-white font-montserrat px-12 py-2  tracking-wider rounded-xl transform shadow cursor-pointer font-bold disabled:bg-gray-400 disabled:cursor-not-allowed">
@@ -123,10 +126,6 @@ const LoginLecturer = () => {
                     </div>
                 </div>
                 <div className='sm:pt-8 pt-2 font-poppins sm:text-xl text-base flex flex-col items-center w-full gap-2'>
-                    <div>
-                        Forgot your password? &nbsp;
-                        <button onClick={goToForgot} className='text-blue-700 underline'>Reset it here!</button>
-                    </div>
                     <div className='flex flex-row'>
                         <span className=''>
                             You aren't a &nbsp;

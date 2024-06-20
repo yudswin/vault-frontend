@@ -8,6 +8,8 @@ import Lecturer from "../pages/Lecturer";
 import ForgotPassword from "../pages/ForgotPassword"
 import ReviewCode from "../pages/ReviewCode";
 import SessionInfoPage from "../pages/SessionInfoPage";
+import StudentDashboard from "../pages/StudentDashboard";
+import QuizPage from "../pages/QuizPage";
 
 export const routes = [
     {
@@ -82,6 +84,22 @@ export const routes = [
         title: 'Forgot Password',
         role: 'Helper',
         animatedBg: true,
+        header: true
+    },
+    {
+        path: '/dashboard',
+        page: StudentDashboard,
+        animatedBg: true,
+        title: 'Student Dashboard',
+        role: 'student',
+        header: true
+    },
+    {
+        path: '/dashboard/:code',
+        page: QuizPage,
+        animatedBg: true,
+        title: 'Student Dashboard',
+        role: 'student',
         header: true
     }
 ]
