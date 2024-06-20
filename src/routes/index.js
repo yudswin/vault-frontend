@@ -10,6 +10,8 @@ import ReviewCode from "../pages/ReviewCode";
 import SessionInfoPage from "../pages/SessionInfoPage";
 import StudentDashboard from "../pages/StudentDashboard";
 import QuizPage from "../pages/QuizPage";
+import StudentAccount from "../pages/StudentAccount";
+import LecturerAccount from "../pages/LecturerAccount";
 
 export const routes = [
     {
@@ -100,6 +102,22 @@ export const routes = [
         animatedBg: true,
         title: 'Student Dashboard',
         role: 'student',
+        header: true
+    },
+    {
+        path: '/account',
+        page: StudentAccount,
+        animatedBg: true,
+        title: 'Update Dashboard',
+        role: 'student',
+        header: true
+    },
+    {
+        path: '/lecturer/account',
+        page: LecturerAccount,
+        animatedBg: true,
+        title: 'Update Dashboard',
+        role: 'lecturer',
         header: true
     }
 ]
