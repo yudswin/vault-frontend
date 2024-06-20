@@ -1,11 +1,10 @@
 import BreadcrumbComponent from '../components/BreadcrumbComponent'
-import { ArrowsOut } from '@phosphor-icons/react'
+import { ArrowsOut, FileXls } from '@phosphor-icons/react'
 import TableComponent from '../components/SessionComponents/TableComponent'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import * as AttendanceService from '../services/AttendanceService';
 import * as message from '../components/MessageModal'
-// fetch record
 import * as RecordService from '../services/RecordService';
 
 
@@ -58,9 +57,6 @@ const SessionInfoPage = () => {
         handleGetAllRecord(sessionDetail);
     }, [sessionDetail])
 
-    useEffect(() => {
-        // console.log(data);
-    }, [data])
 
     return (
         <div className={`sm:h-full h-svh bg-gradient-to-tr from-violet-400 to-sky-200`}>
@@ -71,10 +67,10 @@ const SessionInfoPage = () => {
                         <div className='font-poppins sm:text-4xl text-2xl'>
                             {session ? session : 'Session Code'}
                         </div>
-                        <div className='flex items-start'>
+                        <div className='flex flex-col gap-2 items-start'>
                             <button
                                 onClick={handleReview}
-                                className='flex items-center gap-2 border-[1px] border-black rounded-sm p-2 hover:scale-105 hover:shadow-xl'>
+                                className='flex w-full items-center gap-2 border-[1px] border-black rounded-sm p-2 hover:scale-105 hover:shadow-xl'>
                                 <ArrowsOut size={28} />
                                 <span className='sm:flex hidden'>Review Code</span>
                             </button>
@@ -98,7 +94,7 @@ const SessionInfoPage = () => {
                     </button>
                 </div> */}
                 <div id='table-container' className='pt-4 flex gap-8'>
-                    <TableComponent record={data}/>
+                    <TableComponent record={data} />
                 </div>
             </div>
         </div>
