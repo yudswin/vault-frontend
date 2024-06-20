@@ -69,7 +69,6 @@ const QuizPage = () => {
     const handleComplete = async () => {
     try {
 
-        
         const formData = new FormData();
         formData.append('submissionPath[]', file);
         formData.append('sessionID', sessionID);
@@ -77,7 +76,7 @@ const QuizPage = () => {
         const res = await RecordService.create(sessionID, formData);
         if (res?.status === "OK") {
             message.success('Quiz submitted successfully');
-            // navigate('/dashboard');
+            navigate('/dashboard');
         } else if (res?.status === "ERR") {
             message.error(res?.message);
         }
