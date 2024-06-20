@@ -29,7 +29,11 @@ const HeaderComponent = ({ title, role }) => {
     }
 
     const goToAccount = () => {
-        navigate('/' + role + 'Account')
+        if (role === 'student') {
+            navigate('/account')
+        } else if (role === 'lecturer') {
+            navigate('/lecturer/account')
+        }
     }
 
     useEffect(() => {

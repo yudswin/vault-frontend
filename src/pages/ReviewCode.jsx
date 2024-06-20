@@ -87,7 +87,7 @@ const ReviewCode = () => {
                 </div>
                 <div className='px-20 pt-5 flex justify-center'>
                     <div className='bg-white flex flex-row-reverse h-max gap-12 py-4 px-10 w-max items-center border border-black rounded-xl'>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=https://echeckin.vercel.app/" alt="" className='pl-4 border-l-2 border-black' />
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=https://vaultams.vercel.app/" alt="" className='pl-4 border-l-2 border-black' />
                         <div className='flex flex-row items-center gap-6'>
                             <button className='hover:scale-110' onClick={handleCopy}>
                                 <Clipboard size={60} />
@@ -96,7 +96,7 @@ const ReviewCode = () => {
                                 <span className='text-8xl font-poppins uppercase'>
                                     {session ? session : 'CODEXD'}
                                 </span>
-                                <span>https://echeckin.vercel.app/</span>
+                                <span>https://vaultams.vercel.app/</span>
                             </div>
                         </div>
                     </div>

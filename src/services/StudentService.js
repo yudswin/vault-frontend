@@ -41,3 +41,12 @@ export const changePassword = async (data) => {
     const res = await axios.post(`${API_URL}/student/changePassword`, data)
     return res.data
 }
+
+export const updateStudent = async (id, data, accessToken) => {
+    const res = await axios.put(`${API_URL}/student/update/${id}`, data, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}
