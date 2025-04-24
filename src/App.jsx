@@ -4,7 +4,7 @@ import HeaderComponent from "./components/HeaderComponent";
 import GradientBackground from "./components/GradientBackground";
 import { Fragment } from "react";
 import { NextUIProvider } from "@nextui-org/react";
-
+// testne
 export default function App() {
   return (
     <NextUIProvider>
